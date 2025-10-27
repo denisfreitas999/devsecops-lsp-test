@@ -1,6 +1,5 @@
 name: LGPD Compliance Check
 
-# Aciona o workflow em cada push para qualquer branch
 on: [push]
 
 jobs:
@@ -8,40 +7,37 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      # Passo 1: Faz o checkout do código da sua API PoC.
-      # O código da API estará disponível no diretório de trabalho.
+      # Passo 1: Faz o checkout do código da API PoC (o repositório atual).
+      # Ele será colocado no diretório de trabalho padrão.
       - name: Checkout PoC Code
         uses: actions/checkout@v3
       
+      # Passo 1.1: Faz o checkout do código do servidor LSP em uma pasta específica.
+      # A ação 'checkout' vai usar o token de autenticação do workflow para clonar
+      # o repositório, mesmo que ele seja privado (desde que esteja na mesma conta).
+      - name: Checkout LGPD LSP Server Code
+        uses: actions/checkout@v3
+        with:
+          repository: denisfreitas999/lgpd-compliance-lsp
+          path: lsp-server # Clona o repositório para uma pasta chamada 'lsp-server'
+
       # Passo 2: Configura o ambiente Node.js.
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      # Passo 3: Clona o repositório do seu servidor LSP.
-      # Ele será clonado em uma pasta chamada 'lsp-server' ao lado da pasta da PoC.
-      - name: Clone LGPD LSP Server Repository
-        run: git clone https://github.com/denisfreitas999/lgpd-compliance-lsp.git ../lsp-server
-
-      # Passo 4: Instala as dependências e compila o servidor LSP.
-      # É crucial executar estes comandos DENTRO da pasta do servidor.
+      # Passo 3: Instala as dependências e compila o servidor LSP.
       - name: Install and Compile LSP Server
         run: |
-          cd ../lsp-server
-          npm install       # Instala dependências da raiz, client e server
-          npm run compile   # Compila o TypeScript para JavaScript
-
-      # Passo 5: Instala as dependências da própria API PoC.
-      # Este passo é importante porque seu código pode ter 'require' de pacotes
-      # como express, sequelize, etc. Sem isso, a análise poderia falhar.
+          cd lsp-server
+          npm install
+          npm run compile
+        
+      # Passo 4: Instala as dependências da própria API PoC.
       - name: Install PoC Dependencies
         run: npm install
 
-      # Passo 6: Executa a análise de conformidade.
-      # A chamada ao script agora é feita de uma forma mais robusta.
+      # Passo 5: Executa a análise de conformidade.
       - name: Run LGPD Compliance Analysis
-        run: |
-          # A partir da raiz da PoC, chamamos o script de análise que está na pasta do servidor
-          # e passamos "." como argumento, que significa "analise o diretório atual".
-          node ../lsp-server/server/out/analyze.js .
+        run: node ./lsp-server/server/out/analyze.js .
