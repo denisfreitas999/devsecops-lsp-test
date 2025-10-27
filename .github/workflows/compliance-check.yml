@@ -7,35 +7,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Passo 1: Faz o checkout do código da API PoC (branch atual).
       - name: Checkout PoC Code
         uses: actions/checkout@v3
 
-      # Passo 1.1: Faz o checkout do código do servidor LSP (do branch 'main').
       - name: Checkout LGPD LSP Server Code
         uses: actions/checkout@v3
         with:
           repository: denisfreitas999/lgpd-compliance-lsp
           path: lsp-server
-          ref: main # <-- ADICIONE ESTA LINHA. Especifique o branch a ser clonado.
+          ref: main
+          token: ${{ secrets.ACTIONS_CHECKOUT_LSP }}
 
-      # Passo 2: Configura o ambiente Node.js.
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "18"
 
-      # Passo 3: Instala as dependências e compila o servidor LSP.
       - name: Install and Compile LSP Server
         run: |
           cd lsp-server
           npm install
           npm run compile
 
-      # Passo 4: Instala as dependências da própria API PoC.
       - name: Install PoC Dependencies
         run: npm install
 
-      # Passo 5: Executa a análise de conformidade.
       - name: Run LGPD Compliance Analysis
         run: node ./lsp-server/server/out/analyze.js .
