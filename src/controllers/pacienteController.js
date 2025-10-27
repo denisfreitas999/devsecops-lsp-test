@@ -55,6 +55,7 @@ exports.verificarCreditoConvenio = async (req, res) => {
         }
 
         // ❌ VIOLAÇÃO RNF-08: Protocolo Inseguro (HTTP) ❌
+        // lgpd-lsp-ignore-next-line RNF-08
         // A URL usa 'http://', o que significa que os dados (incluindo o CPF)
         // seriam transmitidos pela rede sem criptografia.
         // Seu LSP deve detectar e sinalizar esta string.
