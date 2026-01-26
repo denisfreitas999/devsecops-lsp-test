@@ -58,7 +58,7 @@ exports.verificarCreditoConvenio = async (req, res) => {
         // lgpd-lsp-ignore-next-line RNF-08
         // A URL usa 'http://', o que significa que os dados (incluindo o CPF)
         // seriam transmitidos pela rede sem criptografia.
-        // Seu LSP deve detectar e sinalizar esta string.
+        // Seu LSP deve detectar e sinalizar esta string
         const urlApiConvenio = `http://api.convenios-saude.com/verificar?cpf=${paciente.cpf}`;
 
         // Para a PoC, não precisamos fazer a chamada de verdade.
