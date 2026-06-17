@@ -1,0 +1,34 @@
+Copyright (c) 2026 Denisson Santos Alves de Freitas
+
+devsecops-lsp-test — LGPD Compliance LSP Test Server (PoC)
+
+This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0).
+
+You are free to:
+
+* Share — copy and redistribute the material in any medium or format.
+
+Under the following terms:
+
+* Attribution (BY): Appropriate credit must be given to the original author.
+* NonCommercial (NC): Commercial use of this software is prohibited.
+* NoDerivatives (ND): Redistribution of modified versions is not permitted without prior written authorization from the author.
+
+This software is intended exclusively for academic, educational, personal and research purposes.
+
+Any proposal for improvements, corrections or extensions should be submitted to the author for prior authorization.
+
+A copy of the license is available at:
+
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+
+Author:
+Denisson Santos Alves de Freitas
+
+Master's Dissertation:
+
+"Framework para Conformidade Contínua com a LGPD: Uma Implementação com Language Server Protocol em Pipelines DevSecOps"
+
+Federal University of Sergipe (UFS)
+Graduate Program in Computer Science (PROCC)
+2026
